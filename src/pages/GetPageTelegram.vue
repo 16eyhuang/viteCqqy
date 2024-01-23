@@ -1,14 +1,16 @@
 <template>
   <div class="container">
     <div class="background">
-      <img src="../asserts/getPage/background.png" alt="" style="width: 100%;">
+      <img src="../asserts/getPageTelegram/background.png" alt="" style="width: 100%;">
     </div>
     <img src="../asserts/爱奇艺会员-logo.png" alt="" class="img-aiqiyi">
-    <img src="../asserts/中国移动.png" alt="" class="img-china-mobile">
-    <img src="../asserts/topText.png" alt="" class="img-top-text">
+    <img src="../asserts/中国电信.png" alt="" class="img-china-mobile">
+    <img src="../asserts/getPageTelegram/topText.png" alt="" class="img-top-text">
+    <img src="../asserts/getPageTelegram/四川电信用户专享.png" alt="" class="img-center-text">
     <img src="../asserts/getPage/circleMatrix.png" alt="" class="img-circle-matrix">
     <img src="../asserts/getPage/leftGift.png" alt="" class="img-left-gift">
     <img src="../asserts/getPage/rightGift.png" alt="" class="img-right-gift">
+    <img src="../asserts/getPageTelegram/inputAfterText.png" alt="" class="img-input-after-text">
 
     <van-cell-group inset>
       <van-field v-model="phone" placeholder="请输入手机号码" type="tel" style="font-size: 4vw;" class="phone-field" autofocus />
@@ -22,21 +24,21 @@
       点击领取
     </van-button>
 
-    <van-checkbox v-model="checked" class="checked" icon-size="3.87vw"></van-checkbox>
+    <!-- <van-checkbox v-model="checked" class="checked" icon-size="3.87vw"></van-checkbox>
 
     <div class="text-container">
       <span>我已阅读并同意</span>
       <span style="color: rgb(7, 212, 125);" @click="showBusiness">《业务受理协议》</span>
       <span>和</span>
       <span style="color: rgb(7, 212, 125);" @click="showSecret">《用户隐私协议》</span>
-    </div>
+    </div> -->
 
     <van-dialog v-model:show="showBusinessText" width="90vw">
       <DialogTextBusiness />
     </van-dialog>
 
     <van-dialog v-model:show="showSecretText" width="90vw">
-      <DialogTextSecret />
+      <DialogTextSecretTelegram />
     </van-dialog>
 
     <van-dialog v-model:show="info1" width="60vw" :showConfirmButton="false" closeOnClickOverlay>
@@ -52,7 +54,7 @@
           <img src="../asserts/xIcon.png" alt="" style="width: 6vw; height: 6.67vw; margin-left: 65vw;" @click="showPreGet = false">
         </div>
         <div style="font-size: 6.25vw; font-weight: bold; margin-left: 1vw; margin-top: 3vw;">
-          即将领取爱奇艺视频月卡
+          即将领取爱奇艺白金会员
         </div>
         <div style="display: flex;">
           <img src="../asserts/getPage/aiqiyiLogo.png" alt="" style="width: 26.27vw; height: 26vw; margin-left: 22vw; margin-top: 7vw;">
@@ -132,14 +134,14 @@
 <script>
 import axios from 'axios';
 import DialogTextBusiness from '../components/DialogTextBusiness.vue';
-import DialogTextSecret from '../components/DialogTextSecret.vue';
-import { baseUrl, serveName } from '../utils/util.js';
+import DialogTextSecretTelegram from '../components/DialogTextSecretTelegram.vue';
+import { baseUrlTelegram, serveName } from '../utils/util.js';
 
 export default {
   name: "GetPage",
   components: {
     DialogTextBusiness,
-    DialogTextSecret,
+    DialogTextSecretTelegram,
   },
   data() {
     return {
@@ -157,7 +159,7 @@ export default {
     };
   },
   created() {
-    document.title = "移动爱奇艺";
+    document.title = "电信爱奇艺";
     this.getToken();
   },
   methods: {
@@ -176,7 +178,7 @@ export default {
     },
     // 获取token并存储到本地
     getToken() {
-      axios.post(`${baseUrl}/oauth/oauth/token?client_id=client&client_secret=secret_881&grant_type=client_credentials`).then((res) => {
+      axios.post(`${baseUrlTelegram}/oauth/oauth/token?client_id=client&client_secret=secret_881&grant_type=client_credentials`).then((res) => {
         if (res?.status === 200) {
           window.localStorage.setItem('access_token', res?.data?.access_token);
         }
@@ -188,7 +190,7 @@ export default {
       return new Promise((resolve) => {
         axios({
           method: 'POST',
-          url: `${baseUrl}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=CQYD`,
+          url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=SCDX`,
         }).then((res) => {
           console.log('res: ', res);
           if (res?.status === 200 && res?.data?.code === '0000') {
@@ -208,10 +210,10 @@ export default {
         this.showInfo('请先输入手机号！');
         return;
       }
-      if (!this.checked) {
-        this.showInfo('请勾选同意相关协议！');
-        return;
-      }
+      // if (!this.checked) {
+      //   this.showInfo('请勾选同意相关协议！');
+      //   return;
+      // }
       this.showPreGet = true;
     },
     async handleConfirm() {
@@ -254,6 +256,13 @@ export default {
       left: 5.87vw;
       top: 13.47vw;
     }
+    .img-center-text {
+      position: absolute;
+      width: 27.33vw;
+      height: 3.2vw;
+      left: 36.13vw;
+      top: 89.33vw;
+    }
     .img-left-gift {
       position: absolute;
       width: 10.8vw;
@@ -268,6 +277,13 @@ export default {
       right: 0vw;
       top: 109.2vw;
     }
+    .img-input-after-text {
+      position: absolute;
+      width: 76.4vw;
+      height: 6.67vw;
+      left: 11.2vw;
+      top: 123.2vw;
+    }
     .img-circle-matrix {
       position: absolute;
       width: 92.8vw;
@@ -280,7 +296,7 @@ export default {
       width: 69.84vw;
       height: 10.43vw;
       left: 15.02vw;
-      top: 114.1vw;
+      top: 109.17vw;
       border: 0.2vw solid #666;
       border-radius: 1vw;
     }

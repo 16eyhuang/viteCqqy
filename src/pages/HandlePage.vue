@@ -164,6 +164,7 @@ export default {
     };
   },
   created() {
+    document.title = "移动爱奇艺";
     this.getToken();
   },
   methods: {
