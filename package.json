@@ -12,7 +12,8 @@
     "serve": "^14.2.1",
     "vant": "^4.0.0",
     "vue": "^3.2.45",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "element-plus": "^2.5.6"
   },
   "devDependencies": {
     "@vant/auto-import-resolver": "^1.0.1",

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HandlePage from '../pages/HandlePage.vue';
 import GetPage from '../pages/GetPage.vue';
 import GetPageTelegram from '../pages/GetPageTelegram.vue';
+import BenefitReport from '../pages/BenefitReport.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/scqy',
       name: 'getPageTelegram',
       component: GetPageTelegram,
+    },
+    {
+      path: '/benefitReport',
+      name: 'benefitReport',
+      component: BenefitReport,
     },
   ],
 });
