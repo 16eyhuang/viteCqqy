@@ -133,7 +133,7 @@
 import axios from 'axios';
 import DialogTextBusiness from '../components/DialogTextBusiness.vue';
 import DialogTextSecret from '../components/DialogTextSecret.vue';
-import { baseUrl, serveName } from '../utils/util.js';
+import { baseUrlTelegram, serveName } from '../utils/util.js';
 
 export default {
   name: "GetPage",
@@ -176,7 +176,7 @@ export default {
     },
     // 获取token并存储到本地
     getToken() {
-      axios.post(`${baseUrl}/oauth/oauth/token?client_id=client&client_secret=secret_881&grant_type=client_credentials`).then((res) => {
+      axios.post(`${baseUrlTelegram}/oauth/oauth/token?client_id=client&client_secret=secret_881&grant_type=client_credentials`).then((res) => {
         if (res?.status === 200) {
           window.localStorage.setItem('access_token', res?.data?.access_token);
         }
@@ -188,7 +188,7 @@ export default {
       return new Promise((resolve) => {
         axios({
           method: 'POST',
-          url: `${baseUrl}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=CQYD`,
+          url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=CQYD`,
         }).then((res) => {
           console.log('res: ', res);
           if (res?.status === 200 && res?.data?.code === '0000') {
