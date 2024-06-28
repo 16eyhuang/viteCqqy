@@ -124,7 +124,7 @@ export default {
         return;
       }
       axios({
-        method: 'GET',
+        method: 'POST',
         url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/query?access_token=${this.token}&mobile=${this.mobile}`,
         headers: {
           Authorization: `Bearer ${this.token}`,
