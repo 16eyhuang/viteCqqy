@@ -5,6 +5,7 @@ import GetPageTelegram from '../pages/GetPageTelegram.vue';
 import BenefitReport from '../pages/BenefitReport.vue';
 import HbltPage from '../pages/hblt/index.vue';
 import page5G from '../pages/5G/index.vue';
+import HandlePage5G from "../pages/5GHandlePage/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/cqqy/5g',
       name: '5g',
       component: page5G,
+    },
+    {
+      path: '/cqqy/5g/handleOrder',
+      name: '5gHandlePage',
+      component: HandlePage5G,
     },
   ],
 });
