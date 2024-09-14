@@ -242,7 +242,7 @@ function getSmsCode(phone) {
   return new Promise((resolve) => {
     axios({
       method: "POST",
-      url: `${baseUrl}${serveName}/v1/0/yk-cq-quanyi-orders/external/sendHjySms?phone=${phone}&access_token=${access_token}`,
+      url: `${baseUrl}${serveName}/v1/0/yk-cq-quanyi-orders/external/sendHjy30Sms?phone=${phone}&access_token=${access_token}`,
     })
       .then((res) => {
         if (res?.status === 200 && res?.data?.code === "0000") {
@@ -289,7 +289,7 @@ function doOrderAccept(phone, orderId, smsCode) {
   return new Promise((resolve) => {
     axios({
       method: "POST",
-      url: `${baseUrl}${serveName}/v1/0/yk-cq-quanyi-orders/external/orderHjyAccept?orderId=${orderId}&phone=${phone}&smsCode=${smsCode}&access_token=${access_token}`,
+      url: `${baseUrl}${serveName}/v1/0/yk-cq-quanyi-orders/external/orderHjy30Accept?orderId=${orderId}&phone=${phone}&smsCode=${smsCode}&access_token=${access_token}`,
     })
       .then((res) => {
         if (res?.status === 200 && ['2066', '0000'].includes(res?.data?.code)) {
