@@ -10,7 +10,7 @@
     <img src="../asserts/爱奇艺会员-logo.png" alt="" class="img-aiqiyi" />
     <img src="../asserts/中国电信.png" alt="" class="img-china-mobile" />
     <img
-      src="../asserts/getPageTelegram/topText.png"
+      src="../asserts/getPageTelegram/topText2.png"
       alt=""
       class="img-top-text"
     />
@@ -27,7 +27,7 @@
     <img src="../asserts/getPage/leftGift.png" alt="" class="img-left-gift" />
     <img src="../asserts/getPage/rightGift.png" alt="" class="img-right-gift" />
     <img
-      src="../asserts/getPageTelegram/inputAfterText.png"
+      src="../asserts/getPageTelegram/inputAfterText2.png"
       alt=""
       class="img-input-after-text"
     />
