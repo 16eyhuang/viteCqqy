@@ -8,12 +8,14 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "element-plus": "^2.5.6",
     "global": "^4.4.0",
     "serve": "^14.2.1",
+    "svg-captcha": "^1.4.0",
     "vant": "^4.0.0",
     "vue": "^3.2.45",
-    "vue-router": "^4.2.5",
-    "element-plus": "^2.5.6"
+    "vue-captcha-code-alpha": "^0.3.2",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@vant/auto-import-resolver": "^1.0.1",
