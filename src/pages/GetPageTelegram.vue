@@ -120,7 +120,7 @@
             margin-top: 3vw;
           "
         >
-          即将领取爱奇艺白金会员
+          即将领取爱奇艺会员
         </div>
         <div style="display: flex">
           <img
