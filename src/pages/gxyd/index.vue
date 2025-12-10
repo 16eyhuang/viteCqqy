@@ -329,6 +329,7 @@ const getButtonLoading = ref(false);
 const getButtonDisabled = ref(false);
 const showHandleSuccess = ref(false);
 const showHandleFail = ref(false);
+const successType = ref("");
 
 /**
  * @description 获取token并存储到本地

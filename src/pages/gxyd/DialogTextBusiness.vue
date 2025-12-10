@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div style="width: 90vw; text-align: center; font-weight: bold; font-size: 3vw; margin-top: 3vw;">
-      中国移动通信集团重庆有限公司
+      中国移动通信集团广西有限公司
     </div>
     <div style="width: 90vw; text-align: center; font-weight: bold; font-size: 3vw; margin-top: 3vw;">
       服务协议解约条款
