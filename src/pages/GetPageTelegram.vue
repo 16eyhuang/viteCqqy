@@ -210,9 +210,17 @@
           "
           :style="{ marginLeft: successType === 1 ? '23vw' : '26vw' }"
         >
-          {{ successType === 1 ?  "领取成功" : "已领取"  }}
+          {{ successType === 1 ? "领取成功" : "已领取" }}
         </div>
-        <div style="font-size: 3.25vw; color: #666; margin-left: 2vw; margin-top: 7vw;" v-if="successType === 1">
+        <div
+          style="
+            font-size: 3.25vw;
+            color: #666;
+            margin-left: 2vw;
+            margin-top: 7vw;
+          "
+          v-if="successType === 1"
+        >
           将发送手机号码对应的爱奇艺账号请及时查收
         </div>
         <div style="display: flex">
@@ -366,6 +374,7 @@ export default {
               "access_token",
               res?.data?.access_token
             );
+            this.getTicketFromUrl();
           }
         });
     },
@@ -414,6 +423,64 @@ export default {
       this.showPreGet = false;
       this.getButtonDisabled = false;
       this.getButtonLoading = false;
+    },
+    getTicketFromUrl() {
+      // 创建URL对象，解析当前页面的完整URL
+      const url = new URL(window.location.href);
+      // 获取查询参数部分，并创建URLSearchParams对象
+      const params = new URLSearchParams(url.search);
+      // 尝试获取ticket参数
+      const ticket = params.get("ticket");
+
+      if (ticket) {
+        // 如果URL中存在ticket，则调用接口获取手机号
+        this.fetchPhoneByTicket(ticket);
+      } else {
+        // 如果不存在，可以记录日志或什么都不做，保持手机号为空
+        console.log("URL中未找到ticket参数");
+      }
+    },
+    async fetchPhoneByTicket(ticket) {
+      try {
+        // 可选的：在这里可以添加一个加载状态
+        // this.loading = true;
+
+        const access_token = localStorage.getItem("access_token");
+        // 发送POST请求。请根据实际API调整URL和参数格式
+        const response = await axios.post(
+          `${baseUrlTelegram}${serveName}/yk-cqqy-receive-orders/ticket/des?ticket=${ticket}&access_token=${access_token}`,
+          {}, // POST数据体，如果接口要求可为空对象
+          {
+            headers: {
+              // 如果接口需要特定的Header，请在此添加
+              // 'Authorization': `Bearer ${access_token}`
+            },
+          }
+        );
+
+        // 假设接口返回成功，且手机号在 response.data.phone 字段下
+        // 请根据实际接口返回数据结构调整
+        if (
+          response.data &&
+          response.data.code === "0000" &&
+          response.data.phone
+        ) {
+          this.phone = response.data.phone; // 将返回的手机号赋值给数据属性，自动填充到输入框
+        } else {
+          // 处理接口返回错误码或手机号为空的情况
+          console.error("根据ticket获取手机号失败:", response.data.message);
+          // 可以选择不填充，或给用户一个提示（非阻塞式）
+          // this.showInfo('自动获取手机号失败，请手动输入。');
+        }
+      } catch (error) {
+        // 处理请求失败的情况（如网络错误、服务器错误等）
+        console.error("请求手机号接口失败:", error);
+        // 失败时不填充手机号，不影响用户手动输入
+        // this.showInfo('网络请求异常，请手动输入手机号。');
+      } finally {
+        // 可选的：无论成功失败，关闭加载状态
+        // this.loading = false;
+      }
     },
   },
 };
