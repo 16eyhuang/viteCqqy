@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="background">
-      <img src="../../asserts/gxyd/background.png" alt="" style="width: 100%" />
+      <img src="../../asserts/hbyd/background2.png" alt="" style="width: 100%" />
     </div>
 
     <van-cell-group inset>
@@ -29,7 +29,7 @@
 
     <CaptchaImage class="captcha-image" ref="captchaRef" />
 
-    <van-checkbox
+    <!-- <van-checkbox
       v-model="checked"
       class="checked"
       icon-size="3.87vw"
@@ -48,7 +48,7 @@
 
     <van-dialog v-model:show="showSecretText" width="90vw">
       <DialogTextSecret />
-    </van-dialog>
+    </van-dialog> -->
 
     <van-button
       color="linear-gradient(to bottom, #ffb929, #fb7421)"
@@ -57,6 +57,10 @@
     >
       立即激活
     </van-button>
+
+    <div class="a-text" @click="handleToUrl">
+      <a href="https://dx.10086.cn/yhgjDA"></a>
+    </div>
 
     <van-dialog
       v-model:show="info1"
@@ -312,8 +316,8 @@ import axios from "axios";
 import { baseUrlTelegram, serveName } from "../../utils/util.js";
 import { CaptchaImage } from "vue-captcha-code-alpha";
 import "vue-captcha-code-alpha/style.css";
-import DialogTextBusiness from './DialogTextBusiness.vue';
-import DialogTextSecret from './DialogTextSecret.vue';
+import DialogTextBusiness from "./DialogTextBusiness.vue";
+import DialogTextSecret from "./DialogTextSecret.vue";
 
 const captchaRef = ref();
 
@@ -376,10 +380,10 @@ function getButtonClick() {
     showInfo("请输入验证码！");
     return;
   }
-  if (!checked.value) {
-    showInfo("请勾选同意《业务受理协议》和《用户隐私协议》！");
-    return;
-  }
+  // if (!checked.value) {
+  //  showInfo("请勾选同意《业务受理协议》和《用户隐私协议》！");
+  //  return;
+  // }
   if (!validate(verifyCode.value)) {
     showInfo("验证码输入有误(注意区分大小写)，请重新输入或点击刷新验证码！");
     return;
@@ -402,7 +406,7 @@ function doGet(phone) {
   return new Promise((resolve) => {
     axios({
       method: "POST",
-      url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=GXYD`,
+      url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=HBWX`,
     })
       .then((res) => {
         console.log("res: ", res);
@@ -424,8 +428,12 @@ function doGet(phone) {
   });
 }
 
+function handleToUrl() {
+  location.href = 'https://dx.10086.cn/yhgjDA';
+}
+
 onBeforeMount(() => {
-  document.title = "广西移动";
+  document.title = "河北移动";
   getToken();
 });
 </script>
@@ -445,7 +453,7 @@ onBeforeMount(() => {
     width: 69.84vw;
     height: 10.43vw;
     left: 15.02vw;
-    top: 100vw;
+    top: 97vw;
     border: 0.2vw solid #666;
     border-radius: 1vw;
   }
@@ -454,16 +462,7 @@ onBeforeMount(() => {
     width: 69.84vw;
     height: 10.43vw;
     left: 15.02vw;
-    top: 117vw;
-    border: 0.2vw solid #666;
-    border-radius: 1vw;
-  }
-  .verify-code-field {
-    position: absolute;
-    width: 69.84vw;
-    height: 10.43vw;
-    left: 15.02vw;
-    top: 117vw;
+    top: 113vw;
     border: 0.2vw solid #666;
     border-radius: 1vw;
   }
@@ -472,7 +471,7 @@ onBeforeMount(() => {
     width: auto;
     height: 10.43vw;
     left: 54.02vw;
-    top: 117vw;
+    top: 113vw;
     // border: 0.2vw solid #666;
     // border-radius: 1vw;
   }
@@ -483,6 +482,7 @@ onBeforeMount(() => {
     left: 16vw;
     top: 135vw;
     font-size: 3vw;
+    display: none;
   }
   .checked {
     position: absolute;
@@ -490,16 +490,25 @@ onBeforeMount(() => {
     height: 3.87vw;
     left: 10.67vw;
     top: 135vw;
+    display: none;
   }
   .get-button {
     position: absolute;
     width: 69.84vw;
     height: 11.6vw;
     left: 15.02vw;
-    top: 145vw;
+    top: 132vw;
     font-size: 6vw;
     font-weight: bolder;
     border-radius: 7vw;
+  }
+  .a-text {
+    position: absolute;
+    font-size: 3.9vw;
+    left: 13.6vw;
+    top: 247vw;
+    width: 60vw;
+    height: 5vw;
   }
 }
 </style>

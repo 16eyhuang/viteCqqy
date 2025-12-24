@@ -9,6 +9,7 @@ import HandlePage5G from "../pages/5GHandlePage/index.vue";
 import Handle30Page5G from "../pages/5GHandlePage/handle30Order.vue";
 import gx from "../pages/gx/index.vue";
 import gxyd from "../pages/gxyd/index.vue";
+import hbyd from "../pages/hbyd/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,6 +70,11 @@ const router = createRouter({
       path: '/gxyd',
       name: 'gxyd',
       component: gxyd,
+    },
+    {
+      path: '/hbyd',
+      name: 'hbyd',
+      component: hbyd,
     },
   ],
 });

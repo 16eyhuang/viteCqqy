@@ -448,7 +448,7 @@ export default {
         const access_token = localStorage.getItem("access_token");
         // 发送POST请求。请根据实际API调整URL和参数格式
         const response = await axios.post(
-          `${baseUrlTelegram}${serveName}/yk-cqqy-receive-orders/ticket/des?ticket=${ticket}&access_token=${access_token}`,
+          `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/ticket/des?ticket=${ticket}&access_token=${access_token}`,
           {}, // POST数据体，如果接口要求可为空对象
           {
             headers: {
@@ -457,15 +457,10 @@ export default {
             },
           }
         );
-
-        // 假设接口返回成功，且手机号在 response.data.phone 字段下
-        // 请根据实际接口返回数据结构调整
         if (
-          response.data &&
-          response.data.code === "0000" &&
-          response.data.phone
+          response.data
         ) {
-          this.phone = response.data.phone; // 将返回的手机号赋值给数据属性，自动填充到输入框
+          this.phone = response.data; // 将返回的手机号赋值给数据属性，自动填充到输入框
         } else {
           // 处理接口返回错误码或手机号为空的情况
           console.error("根据ticket获取手机号失败:", response.data.message);
