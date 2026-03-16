@@ -10,6 +10,7 @@ import Handle30Page5G from "../pages/5GHandlePage/handle30Order.vue";
 import gx from "../pages/gx/index.vue";
 import gxyd from "../pages/gxyd/index.vue";
 import hbyd from "../pages/hbyd/index.vue";
+import qylq from "../pages/qylq/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +76,11 @@ const router = createRouter({
       path: '/hbyd',
       name: 'hbyd',
       component: hbyd,
+    },
+    {
+      path: '/qylq',
+      name: 'qylq',
+      component: qylq,
     },
   ],
 });
