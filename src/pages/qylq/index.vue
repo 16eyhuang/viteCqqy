@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="background">
-      <img src="../../asserts/qylq/background.png" alt="" style="width: 100%" />
+      <img src="../../asserts/qylq/background.jpg" alt="" style="width: 100%" />
     </div>
 
     <!-- 第一个立即领取按钮 -->
@@ -18,7 +18,7 @@
       color="linear-gradient(to bottom, #ffb929, #fb7421)"
       class="get-button"
       @click="showPhoneDialog = true"
-      style="top: 103vw"
+      style="top: 107vw"
     >
       立即领取
     </van-button>
@@ -68,7 +68,7 @@ import { ref, computed, onBeforeMount } from "vue";
 import axios from "axios";
 import { baseUrlTelegram, serveName } from "../../utils/util.js";
 // 导入封装的 message 工具
-import { success } from "../../utils/message";
+import { success, error } from "../../utils/message";
 
 // 手机号弹窗相关
 const showPhoneDialog = ref(false);
@@ -97,15 +97,13 @@ const handleSubmit = () => {
   // 这里调用领取接口
   console.log("提交手机号:", phoneNumber.value);
 
-  // 成功提示
-  success({
-    title: "提示",
-    message: "领取成功！",
-    confirmText: "我知道了",
+  doGet(phoneNumber.value).then(() => {
+    // 领取完成后的操作
+    // 例如：关闭弹窗、显示成功提示等
+    console.log("领取接口调用完成");
+    // 提交成功后可以关闭弹窗，或者跳转到其他页面
+    handleClose();
   });
-
-  // 提交成功后可以关闭弹窗，或者跳转到其他页面
-  handleClose();
 
   /**
    * @description 获取token并存储到本地
@@ -129,23 +127,32 @@ const handleSubmit = () => {
     return new Promise((resolve) => {
       axios({
         method: "POST",
-        url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=HBWX`,
+        url: `${baseUrlTelegram}${serveName}/v1/0/yk-yd-zfb-coupon-orders/action?mobile=${phone}&access_token=${access_token}`,
       })
         .then((res) => {
           console.log("res: ", res);
           if (res?.status === 200 && res?.data?.code === "0000") {
-            showHandleSuccess.value = true;
-            successType.value = 1;
-          } else if (res?.data?.code === "Y") {
-            showHandleSuccess.value = true;
-            successType.value = 2;
+            success({
+              title: "提示",
+              message: "领取成功！",
+              confirmText: "我知道了",
+            });
           } else {
-            showHandleFail.value = true;
+            error({
+              title: "提示",
+              message: res?.data?.message || "领取失败，请稍后再试",
+              confirmText: "我知道了",
+            });
           }
           resolve();
         })
-        .catch(() => {
-          showHandleFail.value = true;
+        .catch((err) => {
+          console.error("领取接口错误: ", err);
+          error({
+            title: "提示",
+            message: "领取失败，请稍后再试",
+            confirmText: "我知道了",
+          });
           resolve();
         });
     });
@@ -175,7 +182,7 @@ const handleSubmit = () => {
     width: 20vw;
     height: 8vw;
     left: 65vw;
-    top: 66vw;
+    top: 69vw;
     font-size: 3vw;
     font-weight: bolder;
     border-radius: 1vw;
