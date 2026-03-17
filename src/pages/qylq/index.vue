@@ -8,7 +8,7 @@
     <van-button
       color="linear-gradient(to bottom, #ffb929, #fb7421)"
       class="get-button"
-      @click="showPhoneDialog = true"
+      @click="showPhoneDialog = true; currentClickButton.value = 'button1'"
     >
       立即领取
     </van-button>
@@ -17,7 +17,7 @@
     <van-button
       color="linear-gradient(to bottom, #ffb929, #fb7421)"
       class="get-button"
-      @click="showPhoneDialog = true"
+      @click="showPhoneDialog = true; currentClickButton.value = 'button2'"
       style="top: 107vw"
     >
       立即领取
@@ -73,6 +73,7 @@ import { success, error } from "../../utils/message";
 // 手机号弹窗相关
 const showPhoneDialog = ref(false);
 const phoneNumber = ref("");
+const currentClickButton = ref(""); // 用于区分是哪个按钮触发的弹窗
 
 // 手机号验证
 const isPhoneValid = computed(() => {
@@ -124,10 +125,14 @@ const handleSubmit = () => {
   // 领取接口
   function doGet(phone) {
     const access_token = localStorage.getItem("access_token");
+    let type = "LJ"; // 支付立减金
+    if (currentClickButton.value === "button2") {
+      type = "HF"; // 话费立减券
+    }
     return new Promise((resolve) => {
       axios({
         method: "POST",
-        url: `${baseUrlTelegram}${serveName}/v1/0/yk-yd-zfb-coupon-orders/action?mobile=${phone}&access_token=${access_token}`,
+        url: `${baseUrlTelegram}${serveName}/v1/0/yk-yd-zfb-coupon-orders/action?mobile=${phone}&access_token=${access_token}&type=${type}`,
       })
         .then((res) => {
           console.log("res: ", res);
