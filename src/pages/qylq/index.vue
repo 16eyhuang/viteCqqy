@@ -8,7 +8,10 @@
     <van-button
       color="linear-gradient(to bottom, #ffb929, #fb7421)"
       class="get-button"
-      @click="showPhoneDialog = true; currentClickButton.value = 'button1'"
+      @click="
+        showPhoneDialog = true;
+        currentClickButton = 'button1';
+      "
     >
       立即领取
     </van-button>
@@ -17,7 +20,10 @@
     <van-button
       color="linear-gradient(to bottom, #ffb929, #fb7421)"
       class="get-button"
-      @click="showPhoneDialog = true; currentClickButton.value = 'button2'"
+      @click="
+        showPhoneDialog = true;
+        currentClickButton = 'button2';
+      "
       style="top: 107vw"
     >
       立即领取
@@ -105,69 +111,71 @@ const handleSubmit = () => {
     // 提交成功后可以关闭弹窗，或者跳转到其他页面
     handleClose();
   });
+};
 
-  /**
-   * @description 获取token并存储到本地
-   */
-  function getToken() {
-    axios
-      .post(
-        `${baseUrlTelegram}/oauth/oauth/token?client_id=client&client_secret=secret_881&grant_type=client_credentials`,
-      )
+/**
+ * @description 获取token并存储到本地
+ */
+function getToken() {
+  console.log("获取token");
+  axios
+    .post(
+      `${baseUrlTelegram}/oauth/oauth/token?client_id=client&client_secret=secret_881&grant_type=client_credentials`,
+    )
+    .then((res) => {
+      console.log("res: ", res);
+      if (res?.status === 200) {
+        window.localStorage.setItem("access_token", res?.data?.access_token);
+      }
+    });
+}
+
+// 领取接口
+function doGet(phone) {
+  const access_token = localStorage.getItem("access_token");
+  let type = "LJ"; // 支付立减金
+  if (currentClickButton.value === "button2") {
+    type = "HF"; // 话费立减券
+  }
+  return new Promise((resolve) => {
+    axios({
+      method: "POST",
+      url: `${baseUrlTelegram}${serveName}/v1/0/yk-yd-zfb-coupon-orders/action?mobile=${phone}&access_token=${access_token}&type=${type}`,
+    })
       .then((res) => {
         console.log("res: ", res);
-        if (res?.status === 200) {
-          window.localStorage.setItem("access_token", res?.data?.access_token);
-        }
-      });
-  }
-
-  // 领取接口
-  function doGet(phone) {
-    const access_token = localStorage.getItem("access_token");
-    let type = "LJ"; // 支付立减金
-    if (currentClickButton.value === "button2") {
-      type = "HF"; // 话费立减券
-    }
-    return new Promise((resolve) => {
-      axios({
-        method: "POST",
-        url: `${baseUrlTelegram}${serveName}/v1/0/yk-yd-zfb-coupon-orders/action?mobile=${phone}&access_token=${access_token}&type=${type}`,
-      })
-        .then((res) => {
-          console.log("res: ", res);
-          if (res?.status === 200 && res?.data?.code === "0000") {
-            success({
-              title: "提示",
-              message: "领取成功！",
-              confirmText: "我知道了",
-            });
-          } else {
-            error({
-              title: "提示",
-              message: res?.data?.message || "领取失败，请稍后再试",
-              confirmText: "我知道了",
-            });
-          }
-          resolve();
-        })
-        .catch((err) => {
-          console.error("领取接口错误: ", err);
-          error({
+        if (res?.status === 200 && res?.data?.code === "S") {
+          success({
             title: "提示",
-            message: "领取失败，请稍后再试",
+            message: "领取成功！",
             confirmText: "我知道了",
           });
-          resolve();
+        } else {
+          error({
+            title: "提示",
+            message: res?.data?.msg || "领取失败，请稍后再试",
+            confirmText: "我知道了",
+          });
+        }
+        resolve();
+      })
+      .catch((err) => {
+        console.error("领取接口错误: ", err);
+        error({
+          title: "提示",
+          message: "领取失败，请稍后再试",
+          confirmText: "我知道了",
         });
-    });
-  }
-
-  onBeforeMount(() => {
-    document.title = "权益领取";
-    getToken();
+        resolve();
+      });
   });
-};
+}
+
+onBeforeMount(() => {
+  document.title = "权益领取";
+  console.log("页面加载，获取token");
+  getToken();
+});
 </script>
 
 <style scoped lang="less">
