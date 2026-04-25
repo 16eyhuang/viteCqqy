@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HandlePage from '../pages/HandlePage.vue';
 import GetPage from '../pages/GetPage.vue';
 import GetPageTelegram from '../pages/GetPageTelegram.vue';
+import GetPageTelegramGMDX from '../pages/GetPageTelegramGMDX.vue';
 import BenefitReport from '../pages/BenefitReport.vue';
 import HbltPage from '../pages/hblt/index.vue';
 import page5G from '../pages/5G/index.vue';
@@ -81,6 +82,11 @@ const router = createRouter({
       path: '/qylq',
       name: 'qylq',
       component: qylq,
+    },
+    {
+      path: '/gmdx',
+      name: 'getPageTelegramGMDX',
+      component: GetPageTelegramGMDX,
     },
   ],
 });
