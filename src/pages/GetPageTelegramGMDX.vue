@@ -2,30 +2,30 @@
   <div class="container">
     <div class="background">
       <img
-        src="../asserts/getPageTelegram/background.png"
+        src="../asserts/getPageTelegram/background2.png"
         alt=""
-        style="width: 100%"
+        style="width: 100%;"
       />
     </div>
-    <img src="../asserts/爱奇艺会员-logo.png" alt="" class="img-aiqiyi" />
-    <img src="../asserts/中国电信.png" alt="" class="img-china-mobile" />
-    <img
+    <!-- <img src="../asserts/爱奇艺会员-logo.png" alt="" class="img-aiqiyi" /> -->
+    <!-- <img src="../asserts/中国电信.png" alt="" class="img-china-mobile" /> -->
+    <!-- <img
       src="../asserts/getPageTelegram/topText2.png"
       alt=""
       class="img-top-text"
-    />
-    <img
+    /> -->
+    <!-- <img
       src="../asserts/getPage/circleMatrix.png"
       alt=""
       class="img-circle-matrix"
-    />
-    <img src="../asserts/getPage/leftGift.png" alt="" class="img-left-gift" />
+    /> -->
+    <!-- <img src="../asserts/getPage/leftGift.png" alt="" class="img-left-gift" />
     <img src="../asserts/getPage/rightGift.png" alt="" class="img-right-gift" />
     <img
       src="../asserts/getPageTelegram/inputAfterText2.png"
       alt=""
       class="img-input-after-text"
-    />
+    /> -->
 
     <van-cell-group inset>
       <van-field
@@ -485,6 +485,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    height: 100vh;
   }
   .img-aiqiyi {
     position: absolute;
@@ -540,7 +541,7 @@ export default {
     width: 69.84vw;
     height: 10.43vw;
     left: 15.02vw;
-    top: 109.17vw;
+    top: 83vw;
     border: 0.2vw solid #666;
     border-radius: 1vw;
   }
@@ -549,7 +550,7 @@ export default {
     width: 69.84vw;
     height: 11.6vw;
     left: 15.02vw;
-    top: 133.73vw;
+    top: 107vw;
     font-size: 6vw;
     font-weight: bolder;
     border-radius: 7vw;
