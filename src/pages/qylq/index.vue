@@ -58,7 +58,7 @@
           <van-button class="close-btn" @click="handleClose"> 关闭 </van-button>
           <van-button
             class="submit-btn"
-            :disabled="!isPhoneValid"
+            :disabled="!isPhoneValid || getButtonDisabled"
             @click="handleSubmit"
           >
             领取
@@ -80,6 +80,7 @@ import { success, error } from "../../utils/message";
 const showPhoneDialog = ref(false);
 const phoneNumber = ref("");
 const currentClickButton = ref(""); // 用于区分是哪个按钮触发的弹窗
+const getButtonDisabled = ref(false);
 
 // 手机号验证
 const isPhoneValid = computed(() => {
@@ -137,6 +138,7 @@ function doGet(phone) {
   if (currentClickButton.value === "button2") {
     type = "HF"; // 话费立减券
   }
+  getButtonDisabled.value = true; // 禁用领取按钮，防止重复点击
   return new Promise((resolve) => {
     axios({
       method: "POST",
@@ -167,6 +169,8 @@ function doGet(phone) {
           confirmText: "我知道了",
         });
         resolve();
+      }).finally(() => {
+        getButtonDisabled.value = false; // 恢复领取按钮状态
       });
   });
 }
