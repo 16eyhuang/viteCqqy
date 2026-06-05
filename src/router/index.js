@@ -12,6 +12,7 @@ import gx from "../pages/gx/index.vue";
 import gxyd from "../pages/gxyd/index.vue";
 import hbyd from "../pages/hbyd/index.vue";
 import qylq from "../pages/qylq/index.vue";
+import hbyd20260605 from "../pages/hbyd20260605/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -88,6 +89,11 @@ const router = createRouter({
       name: 'getPageTelegramGMDX',
       component: GetPageTelegramGMDX,
     },
+    {
+      path: '/bjhbyd',
+      name: 'bjhbyd',
+      component: hbyd20260605,
+    }
   ],
 });
 
