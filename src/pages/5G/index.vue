@@ -1,26 +1,8 @@
 <template>
   <div class="container">
     <div class="background">
-      <img src="../../asserts/5G/background.png" alt="" style="width: 100%" />
+      <img src="../../asserts/5G/background2.png" alt="" style="width: 100%" />
     </div>
-    <img src="../../asserts/爱奇艺会员-logo.png" alt="" class="img-aiqiyi" />
-    <img src="../../asserts/中国移动.png" alt="" class="img-china-mobile" />
-    <img src="../../asserts/5G/topText.png" alt="" class="img-top-text" />
-    <img
-      src="../../asserts/getPage/circleMatrix.png"
-      alt=""
-      class="img-circle-matrix"
-    />
-    <img
-      src="../../asserts/getPage/leftGift.png"
-      alt=""
-      class="img-left-gift"
-    />
-    <img
-      src="../../asserts/getPage/rightGift.png"
-      alt=""
-      class="img-right-gift"
-    />
     <van-cell-group inset>
       <van-field
         v-model="phone"
@@ -36,12 +18,31 @@
       class="get-button"
       @click="getButtonClick"
     >
-      点击领取
+      点击绑定
     </van-button>
+
+
+    <van-checkbox v-model="checked" class="checked" icon-size="3.87vw"></van-checkbox>
+
+    <div class="text-container">
+      <span>我已阅读并同意</span>
+      <span style="color: rgb(7, 212, 125);" @click="showBusiness">《业务受理协议》</span>
+      <span>和</span>
+      <span style="color: rgb(7, 212, 125);" @click="showSecret">《用户隐私协议》</span>
+    </div>
+
     <van-dialog v-model:show="info1" width="60vw" :showConfirmButton="false" closeOnClickOverlay>
       <div style="width: 60vw; text-align: center; display: flex; flex-direction: column; font-size: 4vw; padding: 5vw 0;">
         <div>{{ infoText }}</div>
       </div>
+    </van-dialog>
+
+    <van-dialog v-model:show="showBusinessText" width="90vw">
+      <DialogTextBusiness />
+    </van-dialog>
+
+    <van-dialog v-model:show="showSecretText" width="90vw">
+      <DialogTextSecret />
     </van-dialog>
 
     <!--即将领取弹窗-->
@@ -132,6 +133,8 @@
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 import { baseUrlTelegram, serveName } from "../../utils/util.js";
+import DialogTextBusiness from '../../components/DialogTextBusiness.vue';
+import DialogTextSecret from '../../components/DialogTextSecret.vue';
 
 const phone = ref(""); // 电话号码
 const info1 = ref(false); // 是否显示提示框
@@ -141,6 +144,9 @@ const getButtonLoading = ref(false); // 确认领取按钮加载中状态
 const getButtonDisabled = ref(false); // 确认领取按钮禁用状态
 const showHandleSuccess = ref(false); // 显示领取成功弹窗
 const showHandleFail = ref(false); // 显示领取时报弹窗
+const checked = ref(false);
+const showBusinessText = ref(false); // 是否显示业务受理协议弹窗
+const showSecretText = ref(false); // 是否显示隐私协议弹窗
 
 
 /**
@@ -177,6 +183,10 @@ function getToken() {
 function getButtonClick() {
   if (!phone.value) {
     showInfo("请先输入手机号！");
+    return;
+  }
+  if (!checked.value) {
+    showInfo('请勾选同意相关协议！');
     return;
   }
   showPreGet.value = true;
@@ -239,6 +249,15 @@ function handleCloseSuccess() {
 function handleCloseFail() {
   showHandleFail.value = false;
 }
+
+function showBusiness() {
+  showBusinessText.value = true;
+}
+
+function showSecret() {
+  showSecretText.value = true;
+}
+
 
 onBeforeMount(() => {
   document.title = "移动爱奇艺";
@@ -316,6 +335,21 @@ onBeforeMount(() => {
     font-size: 6vw;
     font-weight: bolder;
     border-radius: 7vw;
+  }
+  .checked {
+    position: absolute;
+    width: 3.87vw;
+    height: 3.87vw;
+    left: 11.3vw;
+    top: 150.33vw;
+  }
+  .text-container {
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 16vw;
+    top: 150.33vw;
+    font-size: 3vw;
   }
 }
 </style>
