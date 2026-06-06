@@ -334,7 +334,7 @@ function doGet(phone) {
   return new Promise((resolve) => {
     axios({
       method: "POST",
-      url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=HBYD`,
+      url: `${baseUrlTelegram}${serveName}/v1/0/yk-cqqy-receive-orders/action?phone=${phone}&access_token=${access_token}&agentCode=BJWY`,
     })
       .then((res) => {
         console.log("doGet res: ", res);
@@ -357,7 +357,7 @@ function doGet(phone) {
 }
 
 onBeforeMount(() => {
-  document.title = "河北移动白金权益";
+  document.title = "白金权益";
   getToken();
 });
 </script>

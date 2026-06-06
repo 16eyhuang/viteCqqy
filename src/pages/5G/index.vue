@@ -22,14 +22,14 @@
     </van-button>
 
 
-    <van-checkbox v-model="checked" class="checked" icon-size="3.87vw"></van-checkbox>
+    <!-- <van-checkbox v-model="checked" class="checked" icon-size="3.87vw"></van-checkbox>
 
     <div class="text-container">
       <span>我已阅读并同意</span>
       <span style="color: rgb(7, 212, 125);" @click="showBusiness">《业务受理协议》</span>
       <span>和</span>
       <span style="color: rgb(7, 212, 125);" @click="showSecret">《用户隐私协议》</span>
-    </div>
+    </div> -->
 
     <van-dialog v-model:show="info1" width="60vw" :showConfirmButton="false" closeOnClickOverlay>
       <div style="width: 60vw; text-align: center; display: flex; flex-direction: column; font-size: 4vw; padding: 5vw 0;">
@@ -185,10 +185,10 @@ function getButtonClick() {
     showInfo("请先输入手机号！");
     return;
   }
-  if (!checked.value) {
-    showInfo('请勾选同意相关协议！');
-    return;
-  }
+  // if (!checked.value) {
+  //   showInfo('请勾选同意相关协议！');
+  //   return;
+  // }
   showPreGet.value = true;
 }
 
@@ -260,7 +260,7 @@ function showSecret() {
 
 
 onBeforeMount(() => {
-  document.title = "移动爱奇艺";
+  document.title = "爱奇艺";
   getToken();
 });
 </script>
