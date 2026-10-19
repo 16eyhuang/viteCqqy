@@ -13,6 +13,8 @@ import gxyd from "../pages/gxyd/index.vue";
 import hbyd from "../pages/hbyd/index.vue";
 import qylq from "../pages/qylq/index.vue";
 import hbyd20260605 from "../pages/hbyd20260605/index.vue";
+import bjjg from "../pages/bjjg/index.vue";
+import hjjg from "../pages/hjjg/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +95,16 @@ const router = createRouter({
       path: '/bjhbyd',
       name: 'bjhbyd',
       component: hbyd20260605,
+    },
+    {
+      path: '/bjjg',
+      name: 'bjjg',
+      component: bjjg,
+    },
+    {
+      path: '/hjjg',
+      name: 'hjjg',
+      component: hjjg,
     }
   ],
 });
